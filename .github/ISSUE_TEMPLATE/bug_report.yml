@@ -1,0 +1,24 @@
+name: Bug report / Troubleshooting request
+description: Remote-WSL disconnects, timeouts, or instability
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please paste logs exactly as requested. No screenshots unless necessary.
+  - type: textarea
+    id: symptoms
+    attributes:
+      label: Symptoms / error messages
+      description: Copy/paste the exact messages from VS Code and PowerShell
+    validations:
+      required: true
+  - type: textarea
+    id: snapshot
+    attributes:
+      label: Health snapshot output
+      description: Paste the output of scripts/windows-wsl-health-snapshot.ps1
+      render: powershell
+    validations:
+      required: true
