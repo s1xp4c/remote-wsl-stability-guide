@@ -73,3 +73,17 @@ Ubuntu (WSL):
 
 - docs/USAGE.md : when to use each script, what it does, and expected outcomes
 - docs/CLICKPATHS.md : Windows click paths for the same actions (Task Manager, .wslconfig, restart)
+
+## If VS Code is down (still troubleshoot safely)
+
+If VS Code can’t connect to WSL right now, you can still run the Ubuntu scripts from a normal shell:
+- Windows Terminal -> Ubuntu
+- Or from PowerShell/CMD using: wsl -d Ubuntu -e bash -lc "<command>"
+
+Examples (Ubuntu):
+    bash ./scripts/ubuntu-fs-check.sh
+    bash ./scripts/ubuntu-reset-vscode-server.sh
+
+Note:
+- PowerShell scripts (.ps1) are meant to run in Windows PowerShell.
+- Bash scripts (.sh) are meant to run inside Ubuntu (WSL).
