@@ -1,24 +1,111 @@
-name: Bug report / Troubleshooting request
-description: Remote-WSL disconnects, timeouts, or instability
+name: "Bug report / Troubleshooting request"
+description: "Remote-WSL disconnects, timeouts, or instability"
 title: "[Bug]: "
 labels: ["bug", "triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Please paste logs exactly as requested. No screenshots unless necessary.
+        Thanks for reporting. This repo focuses on Remote-WSL instability often caused by WSL VM unresponsiveness (commonly memory pressure / OOM).
+        Please paste text output (no screenshots unless absolutely necessary).
+
+        Tip: If VS Code is down, you can still run Ubuntu commands from Windows Terminal (Ubuntu) or via PowerShell:
+            wsl -d Ubuntu -e bash -lc "<command>"
+
+  - type: input
+    id: windows_version
+    attributes:
+      label: "Windows version (winver)"
+      description: "Example: Windows 11 24H2 (OS Build 26100.x)"
+      placeholder: "Windows 11 ... (OS Build ...)"
+    validations:
+      required: false
+
+  - type: input
+    id: wsl_version
+    attributes:
+      label: "WSL version (wsl --status / wsl --version if available)"
+      placeholder: "Default distro, Default version, kernel line if shown"
+    validations:
+      required: false
+
+  - type: input
+    id: distro
+    attributes:
+      label: "Distro + version (lsb_release -a)"
+      placeholder: "Ubuntu 24.04.x LTS (noble) etc."
+    validations:
+      required: false
+
+  - type: input
+    id: vscode_versions
+    attributes:
+      label: "VS Code version + Remote-WSL extension version"
+      placeholder: "VS Code 1.xx.x; Remote - WSL x.x.x"
+    validations:
+      required: false
+
   - type: textarea
     id: symptoms
     attributes:
-      label: Symptoms / error messages
-      description: Copy/paste the exact messages from VS Code and PowerShell
+      label: "Symptoms / exact error messages"
+      description: "Paste the exact text from VS Code and/or PowerShell (0x8007274c, 1006, “distro not found”, etc.)"
     validations:
       required: true
+
   - type: textarea
-    id: snapshot
+    id: steps
     attributes:
-      label: Health snapshot output
-      description: Paste the output of scripts/windows-wsl-health-snapshot.ps1
+      label: "What were you doing right before it failed?"
+      description: "Example: started dev server (pnpm dev), opened repo, ran docker, etc."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist (please tick what you ran)"
+      options:
+        - label: "Ran scripts/windows-wsl-health-snapshot.ps1 and pasted output below"
+          required: true
+        - label: "Confirmed swap status inside Ubuntu (free -h and swapon --show)"
+          required: true
+        - label: "Checked for OOM kills (dmesg -T grep out of memory)"
+          required: true
+        - label: "Confirmed workspace filesystem type (df -T .) is ext4 (not /mnt/c)"
+          required: false
+
+  - type: textarea
+    id: health_snapshot
+    attributes:
+      label: "Health snapshot output (required)"
+      description: "Run in PowerShell from the repo root: powershell -ExecutionPolicy Bypass -File .\\scripts\\windows-wsl-health-snapshot.ps1"
       render: powershell
     validations:
       required: true
+
+  - type: textarea
+    id: swap_output
+    attributes:
+      label: "Swap status output (free -h + swapon --show)"
+      description: "Paste output from inside Ubuntu"
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: oom_output
+    attributes:
+      label: "OOM-related dmesg lines"
+      description: "Paste output of: dmesg -T | egrep -i 'out of memory|oom-kill|killed process' | tail -n 50"
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Anything else you tried (optional)"
+      description: ".wslconfig changes, wsl --shutdown, reset VS Code server, etc."
+    validations:
+      required: false
