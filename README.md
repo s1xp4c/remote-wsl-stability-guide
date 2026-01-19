@@ -87,3 +87,8 @@ Examples (Ubuntu):
 Note:
 - PowerShell scripts (.ps1) are meant to run in Windows PowerShell.
 - Bash scripts (.sh) are meant to run inside Ubuntu (WSL).
+
+## References (official docs)
+
+For the exact settings and commands used here, see:
+- docs/REFERENCES.md

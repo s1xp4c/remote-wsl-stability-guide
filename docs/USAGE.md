@@ -1,5 +1,7 @@
 # Usage guide
 
+See docs/REFERENCES.md for official documentation links backing each command and setting.
+
 This repo contains scripts for diagnosing and fixing a specific Remote-WSL failure mode:
 WSL runs out of memory, kills dev processes (often Node), and VS Code Remote-WSL loses the remote extension host.
 
@@ -24,6 +26,9 @@ Example:
 ## When to use what
 
 ### scripts/windows-wsl-ping.ps1
+Docs:
+- wsl.exe commands: docs/REFERENCES.md#wsl-command-line-wslexe
+
 Use when:
 - VS Code Remote-WSL is spinning/reconnecting
 - You want to know if WSL is responding at all
@@ -37,6 +42,9 @@ Bad signs:
 - Timeouts (for example: Wsl/Service/0x8007274c)
 
 ### scripts/windows-wsl-oom-check.ps1
+Docs:
+- Linux dmesg: docs/REFERENCES.md#linux-commands-used-by-scripts-man-pages
+
 Use when:
 - You suspect OOM kills (Node suddenly dies, dev server disappears)
 - VS Code Remote-WSL disconnects after starting a dev server
@@ -50,6 +58,10 @@ Then:
 - Enable swap (see windows-enable-wsl-swap.ps1 and README)
 
 ### scripts/windows-enable-wsl-swap.ps1
+Docs:
+- WSL .wslconfig settings: docs/REFERENCES.md#wsl-configuration-wslconfig
+- wsl.exe commands: docs/REFERENCES.md#wsl-command-line-wslexe
+
 Use when:
 - Swap is 0B inside Ubuntu
 - You see OOM kills in dmesg
@@ -65,6 +77,10 @@ Important:
 - WSL only applies .wslconfig changes after the WSL VM restarts
 
 ### scripts/windows-wsl-health-snapshot.ps1
+Docs:
+- wsl.exe commands: docs/REFERENCES.md#wsl-command-line-wslexe
+- Linux commands (free, dmesg, ps, swapon): docs/REFERENCES.md#linux-commands-used-by-scripts-man-pages
+
 Use when:
 - You want a single “all-in-one” diagnostic snapshot
 - VS Code Remote-WSL is unstable and you want logs for an issue report
@@ -80,6 +96,9 @@ Expected:
 - If WSL is unresponsive, you may see timeouts and should try a WSL restart and check for OOM
 
 ### scripts/windows-wsl-restart.ps1
+Docs:
+- wsl.exe commands: docs/REFERENCES.md#wsl-command-line-wslexe
+
 Use when:
 - You changed .wslconfig
 - WSL or VS Code Remote feels “stuck”
@@ -90,6 +109,9 @@ What it does:
 - checks free -h and swapon --show
 
 ### scripts/windows-vmmemwsl.ps1
+Docs:
+- PowerShell Get-Process: https://learn.microsoft.com/powershell/module/microsoft.powershell.management/get-process
+
 Use when:
 - You want to see how much memory the WSL VM is using from Windows
 - You want a quick sanity check without opening Task Manager
@@ -98,6 +120,9 @@ What it does:
 - Prints WorkingSetMB for vmmemWSL (and vmmem if present)
 
 ### scripts/ubuntu-fs-check.sh
+Docs:
+- File placement & performance: docs/REFERENCES.md#file-placement--performance-why-home-on-ext4-matters
+
 Use when:
 - You’re unsure whether your repo is inside WSL ext4 or under /mnt/c
 - You want to confirm best-practice workspace placement
@@ -109,6 +134,9 @@ Guidance:
 - Prefer /home/... (ext4) for dev work, especially with file watchers
 
 ### scripts/ubuntu-reset-vscode-server.sh
+Docs:
+- VS Code Remote-WSL model & troubleshooting: docs/REFERENCES.md#vs-code-remote---wsl
+
 Use when:
 - WSL responds fine, but VS Code Remote-WSL cannot connect
 - VS Code keeps reinstalling server or hangs on remote extension host
