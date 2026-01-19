@@ -68,3 +68,8 @@ PowerShell (Windows):
 Ubuntu (WSL):
 - scripts/ubuntu-reset-vscode-server.sh : remove VS Code Server folders in WSL
 - scripts/ubuntu-fs-check.sh : confirm workspace filesystem type (ext4 vs /mnt/c)
+
+## More documentation
+
+- docs/USAGE.md : when to use each script, what it does, and expected outcomes
+- docs/CLICKPATHS.md : Windows click paths for the same actions (Task Manager, .wslconfig, restart)
