@@ -92,3 +92,7 @@ Note:
 
 For the exact settings and commands used here, see:
 - docs/REFERENCES.md
+
+## Error explanations
+
+See docs/ERRORS.md for what common messages mean (0x8007274c, WebSocket 1006, OOM kills, vsock timeouts).
