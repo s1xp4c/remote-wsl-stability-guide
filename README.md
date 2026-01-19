@@ -57,3 +57,14 @@ See scripts/ for copy/pasteable PowerShell scripts.
 4) Is your repo on `/mnt/c`?
    - Run: `df -T . | tail -n 1`
    - If it shows `9p`/`drvfs` → move the repo into `/home/...` (ext4) for better watcher performance.
+
+## Extra troubleshooting scripts
+
+PowerShell (Windows):
+- scripts/windows-wsl-ping.ps1 : quick “is WSL responding?” check
+- scripts/windows-wsl-oom-check.ps1 : show recent OOM kills from dmesg
+- scripts/windows-vmmemwsl.ps1 : show vmmemWSL / vmmem working set in MB
+
+Ubuntu (WSL):
+- scripts/ubuntu-reset-vscode-server.sh : remove VS Code Server folders in WSL
+- scripts/ubuntu-fs-check.sh : confirm workspace filesystem type (ext4 vs /mnt/c)
