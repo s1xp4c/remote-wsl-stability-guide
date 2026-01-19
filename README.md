@@ -39,3 +39,21 @@ Verify in Ubuntu:
 ## Scripts
 
 See scripts/ for copy/pasteable PowerShell scripts.
+
+## Decision tree (fast)
+
+1) Does PowerShell `wsl -d Ubuntu -e bash -lc "uptime"` time out with `0x8007274c`?
+   - Yes → WSL VM is not responding. Check memory pressure and OOM logs.
+   - No → WSL responds; issue may be VS Code server/extension layer (open an issue with logs).
+
+2) In Ubuntu, is swap zero?
+   - Run: `free -h`
+   - If Swap is `0B` → enable swap via `.wslconfig` and restart WSL.
+
+3) Any OOM kills?
+   - Run: `dmesg -T | egrep -i 'out of memory|oom-kill|killed process' | tail -n 30`
+   - If you see OOM kills (often Node) → enable swap and/or reduce dev-server memory load.
+
+4) Is your repo on `/mnt/c`?
+   - Run: `df -T . | tail -n 1`
+   - If it shows `9p`/`drvfs` → move the repo into `/home/...` (ext4) for better watcher performance.
